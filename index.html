@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathak Pathshala</title>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom Stylesheet Link -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app" class="min-h-screen-flex">
+        <!-- Message Box -->
+        <div id="messageBox" class="message-box" style="display: none;"></div>
+
+        <!-- Login Page -->
+        <div id="loginPage" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600 p-4">
+            <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
+                <h1 class="text-3xl font-extrabold text-center text-gray-800 mb-6">Pathak Pathshala</h1>
+
+                <div class="flex justify-center mb-6">
+                    <button id="teacherLoginBtn" class="px-6 py-2 rounded-l-lg font-semibold transition duration-300 ease-in-out bg-gray-200 text-gray-700 hover:bg-gray-300">
+                        Teacher Login
+                    </button>
+                    <button id="studentLoginBtn" class="px-6 py-2 rounded-r-lg font-semibold transition duration-300 ease-in-out bg-blue-600 text-white shadow-md">
+                        Student Login
+                    </button>
+                </div>
+
+                <!-- Teacher Login Form -->
+                <form id="teacherLoginForm" class="space-y-4" style="display: none;">
+                    <div class="form-group">
+                        <label for="teacherEmail">Email ID</label>
+                        <input type="email" id="teacherEmail" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacherPassword">Password</label>
+                        <input type="password" id="teacherPassword" class="form-control" required>
+                    </div>
+                    <button type="submit" class="w-full btn btn-green">Teacher Login</button>
+                </form>
+
+                <!-- Student Login Form -->
+                <form id="studentLoginForm" class="space-y-4">
+                    <div class="form-group">
+                        <label for="studentName">Aapka Naam</label>
+                        <input type="text" id="studentName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentClass">Aapki Class</label>
+                        <select id="studentClass" class="form-control" required>
+                            <option value="Nursery">Nursery</option>
+                            <option value="Class 1">Class 1</option>
+                            <option value="Class 2">Class 2</option>
+                            <option value="Class 3">Class 3</option>
+                            <option value="Class 4">Class 4</option>
+                            <option value="Class 5">Class 5</option>
+                            <option value="Class 6">Class 6</option>
+                            <option value="Class 7">Class 7</option>
+                            <option value="Class 8">Class 8</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentLoginCodeInput">Login Code</label>
+                        <input type="text" id="studentLoginCodeInput" class="form-control" maxlength="6" required>
+                    </div>
+                    <button type="submit" class="w-full btn btn-indigo">Student Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Teacher Panel -->
+        <div id="teacherPanel" class="min-h-screen-flex" style="display: none;">
+            <header class="teacher">
+                <h1 class="text-2xl font-bold">Pathak Pathshala - Teacher Panel</h1>
+                <div class="flex items-center space-x-4">
+                    <span class="text-lg">Welcome, Teacher!</span>
+                    <button id="teacherLogoutBtn" class="btn btn-red btn-small">Logout</button>
+                </div>
+            </header>
+            <div class="main-content">
+                <nav class="sidebar">
+                    <button id="manageCodesTabBtn" class="active">Manage Student Codes</button>
+                    <button id="attendanceTabBtn">Daily Attendance</button>
+                    <button id="assignmentsTabBtn">Assignments</button>
+                    <button id="feesTabBtn">Fee Status</button>
+                    <button id="notificationsTabBtn">Send Notifications</button>
+                </nav>
+                <main>
+                    <!-- Manage Student Codes Tab Content -->
+                    <div id="manageCodesContent" class="card">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Generate & Manage Student Login Codes</h2>
+
+                        <div class="mb-8 p-4 border rounded-md bg-blue-50">
+                            <h3 class="text-xl font-semibold text-blue-800 mb-3">Generate New Login Code</h3>
+                            <form id="generateCodeForm" class="space-y-4">
+                                <div class="form-group">
+                                    <label for="newStudentName">Student Name:</label>
+                                    <input type="text" id="newStudentName" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newStudentClass">Class:</label>
+                                    <select id="newStudentClass" class="form-control" required>
+                                        <option value="Nursery">Nursery</option>
+                                        <option value="Class 1">Class 1</option>
+                                        <option value="Class 2">Class 2</option>
+                                        <option value="Class 3">Class 3</option>
+                                        <option value="Class 4">Class 4</option>
+                                        <option value="Class 5">Class 5</option>
+                                        <option value="Class 6">Class 6</option>
+                                        <option value="Class 7">Class 7</option>
+                                        <option value="Class 8">Class 8</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-blue-600">Generate Code</button>
+                            </form>
+                            <p id="generatedCodeDisplay" class="mt-4 text-green-700 font-semibold" style="display: none;"></p>
+                        </div>
+
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">Existing Student Codes</h3>
+                        <div id="studentCodesList" class="overflow-x-auto">
+                            <!-- Student codes table will be rendered here by JS -->
+                            <p class="text-gray-600">Koi student code registered nahi hai.</p>
+                        </div>
+                    </div>
+
+                    <!-- Daily Attendance Tab Content -->
+                    <div id="attendanceContent" class="card" style="display: none;">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Daily Attendance</h2>
+                        <div class="mb-4 flex items-center space-x-4">
+                            <div class="form-group mb-0">
+                                <label for="attendanceClassSelect">Class Select:</label>
+                                <select id="attendanceClassSelect" class="form-control">
+                                    <option value="Nursery">Nursery</option>
+                                    <option value="Class 1">Class 1</option>
+                                    <option value="Class 2">Class 2</option>
+                                    <option value="Class 3">Class 3</option>
+                                    <option value="Class 4">Class 4</option>
+                                    <option value="Class 5">Class 5</option>
+                                    <option value="Class 6">Class 6</option>
+                                    <option value="Class 7">Class 7</option>
+                                    <option value="Class 8">Class 8</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-0">
+                                <label for="attendanceDate">Date:</label>
+                                <input type="date" id="attendanceDate" class="form-control">
+                            </div>
+                        </div>
+                        <div id="attendanceTableContainer" class="overflow-x-auto">
+                            <!-- Attendance table will be rendered here by JS -->
+                            <p class="text-gray-600">Is class mein koi active student registered nahi hai.</p>
+                        </div>
+                    </div>
+
+                    <!-- Assignments Tab Content -->
+                    <div id="assignmentsContent" class="card" style="display: none;">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Upload Assignments</h2>
+                        <div class="mb-4 form-group">
+                            <label for="assignmentClassSelect">Class Select:</label>
+                            <select id="assignmentClassSelect" class="form-control">
+                                <option value="Nursery">Nursery</option>
+                                <option value="Class 1">Class 1</option>
+                                <option value="Class 2">Class 2</option>
+                                <option value="Class 3">Class 3</option>
+                                <option value="Class 4">Class 4</option>
+                                <option value="Class 5">Class 5</option>
+                                <option value="Class 6">Class 6</option>
+                                <option value="Class 7">Class 7</option>
+                                <option value="Class 8">Class 8</option>
+                            </select>
+                        </div>
+                        <form id="uploadAssignmentForm" class="space-y-4 mb-8">
+                            <div class="form-group">
+                                <label for="assignmentTitle">Title:</label>
+                                <input type="text" id="assignmentTitle" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Assignment Type:</label>
+                                <div class="flex space-x-4">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="assignmentType" value="text" checked>
+                                        <span class="ml-2 text-gray-700">Text</span>
+                                    </label>
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="assignmentType" value="file">
+                                        <span class="ml-2 text-gray-700">PDF/Image</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group" id="assignmentContentGroup">
+                                <label for="assignmentContent">Content:</label>
+                                <textarea id="assignmentContent" rows="5" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group" id="assignmentFileGroup" style="display: none;">
+                                <label for="assignmentFile">Upload File:</label>
+                                <input type="file" id="assignmentFile" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                <p id="selectedFileName" class="text-sm text-gray-500 mt-1" style="display: none;"></p>
+                            </div>
+                            <button type="submit" class="btn btn-blue">Upload Assignment</button>
+                        </form>
+
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Uploaded Assignments for <span id="currentAssignmentClass">Nursery</span></h3>
+                        <div id="assignmentsList" class="space-y-4">
+                            <!-- Uploaded assignments will be rendered here by JS -->
+                            <p class="text-gray-600">Is class ke liye koi assignment upload nahi kiya gaya hai.</p>
+                        </div>
+                    </div>
+
+                    <!-- Fee Status Tab Content -->
+                    <div id="feesContent" class="card" style="display: none;">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Fee Status Management</h2>
+                        <p class="text-gray-600 mb-4">Current Month: <span id="currentFeeMonth"></span></p>
+                        <div id="feeStatusTableContainer" class="overflow-x-auto">
+                            <!-- Fee status table will be rendered here by JS -->
+                            <p class="text-gray-600">Koi active student registered nahi hai.</p>
+                        </div>
+                    </div>
+
+                    <!-- Send Notifications Tab Content -->
+                    <div id="notificationsContent" class="card" style="display: none;">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">Send Notifications to Students</h2>
+                        <form id="sendNotificationForm" class="space-y-4">
+                            <div class="form-group">
+                                <label for="selectStudentForNotification">Select Student:</label>
+                                <select id="selectStudentForNotification" class="form-control" required>
+                                    <option value="">-- Select a Student --</option>
+                                    <!-- Students will be populated here by JS -->
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="notificationMessage">Message:</label>
+                                <textarea id="notificationMessage" rows="4" class="form-control" placeholder="e.g., Call your parents tomorrow." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-purple">Send Notification</button>
+                        </form>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- Student Panel -->
+        <div id="studentPanel" class="min-h-screen-flex" style="display: none;">
+            <header class="student">
+                <h1 class="text-2xl font-bold">Pathak Pathshala - Student Panel</h1>
+                <div class="flex items-center space-x-4">
+                    <span id="studentWelcomeText" class="text-lg">Welcome, Student!</span>
+                    <button id="studentLogoutBtn" class="btn btn-red btn-small">Logout</button>
+                </div>
+            </header>
+            <div class="main-content">
+                <nav class="sidebar">
+                    <button id="studentDashboardTabBtn" class="active student">Dashboard</button>
+                    <button id="studentAttendanceTabBtn">My Attendance</button>
+                    <button id="studentAssignmentsTabBtn">My Assignments</button>
+                    <button id="studentNotificationsTabBtn">My Notifications</button>
+                </nav>
+                <main>
+                    <div id="studentAlertBox" class="alert-box" style="display: none;">
+                        <p class="font-bold">Alert!</p>
+                        <p id="studentAlertMessage"></p>
+                    </div>
+
+                    <!-- Student Dashboard Tab Content -->
+                    <div id="studentDashboardContent" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="card border-l-4 border-blue-500">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Monthly Attendance</h3>
+                            <p id="dashboardAttendance" class="text-4xl font-extrabold text-blue-600">0%</p>
+                            <p class="text-gray-600">Current Month: <span id="dashboardAttendanceMonth"></span></p>
+                        </div>
+                        <div id="dashboardFeeCard" class="card border-l-4 border-red-500">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Fee Status</h3>
+                            <p id="dashboardFeeStatus" class="text-4xl font-extrabold text-red-600">Not Available</p>
+                            <p class="text-gray-600">Current Month: <span id="dashboardFeeMonth"></span></p>
+                        </div>
+                        <div class="card border-l-4 border-purple-500">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Latest Assignment</h3>
+                            <div id="dashboardLatestAssignment">
+                                <p class="text-gray-600">Koi naya assignment nahi hai.</p>
+                            </div>
+                        </div>
+                        <div class="card border-l-4 border-orange-500">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Latest Notification</h3>
+                            <div id="dashboardLatestNotification">
+                                <p class="text-gray-600">Koi naya notification nahi hai.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student My Attendance Tab Content -->
+                    <div id="studentAttendanceContent" class="card" style="display: none;">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">My Attendance Calendar (<span id="myAttendanceMonth"></span>)</h2>
+                        <p class="text-lg font-semibold text-blue-600 mb-4">Monthly Attendance: <span id="myAttendancePercentage">0%</span></p>
+                        <div class="grid grid-cols-7 gap-2 text-sm font-semibold text-gray-700 mb-2">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+                        <div id="attendanceCalendarGrid" class="grid grid-cols-7 gap-2">
+                            <!-- Calendar days will be rendered here by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Student My Assignments Tab Content -->
+                    <div id="studentAssignmentsContent" class="card" style="display: none;">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">My Assignments for Class <span id="myAssignmentsClass"></span></h2>
+                        <div id="myAssignmentsList" class="space-y-4">
+                            <!-- Assignments list will be rendered here by JS -->
+                            <p class="text-gray-600">Aapki class ke liye koi assignment upload nahi kiya gaya hai.</p>
+                        </div>
+                    </div>
+
+                    <!-- Student My Notifications Tab Content -->
+                    <div id="studentNotificationsContent" class="card" style="display: none;">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-4">My Notifications</h2>
+                        <div id="myNotificationsList" class="space-y-3">
+                            <!-- Notifications list will be rendered here by JS -->
+                            <p class="text-gray-600">Aapke liye koi naya notification nahi hai.</p>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs (CDN) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+    <!-- Custom JavaScript Link -->
+    <script src="script.js"></script>
+</body>
+</html>
