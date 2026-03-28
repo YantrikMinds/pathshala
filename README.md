@@ -1,5 +1,3 @@
-made by :- nishant pathak 
-pathak.nishant2517@gmail.com
 
 
 # 🎓 Student Group & Assignment Management System
@@ -102,3 +100,40 @@ Instead, it uses Firebase Firestore methods:
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/YantrikMinds/pathshala
+
+2. Open project
+Open in VS Code or any editor
+
+3. Setup Firebase
+Create Firebase project
+Enable Firestore Database
+Replace Firebase config in project
+
+4. Run project
+Open index.html in browser
+OR
+Use Live Server extension in VS Code
+
+🚀 Deployment
+Hosted using Netlify
+Live Demo: https://dulcet-raindrop-98cc5e.netlify.app/
+
+🧠 Key Design Decisions
+Used Firebase for rapid development and real-time updates
+Implemented NoSQL database for flexible data storage
+Focused on simple and user-friendly UI
+Designed system to be scalable for future features like groups and submission tracking
+
+📈 Future Scope
+Role-based authentication (secure login)
+Group-based collaboration system
+Assignment submission tracking
+Admin analytics dashboard
+Mobile application version
+
+👨‍💻 Author
+
+Nishant Pathak
+📧 pathak.nishant2517@gmail.com
+
+📱 +91 8178718279
